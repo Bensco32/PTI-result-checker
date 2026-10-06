@@ -1,0 +1,11 @@
+.env
+.env.*
+*.log
+.DS_Store
+config/config.local.php
+uploads/*
+!uploads/.htaccess
+!uploads/results/.htaccess
+!uploads/photos/.htaccess
+!uploads/results/.gitkeep
+!uploads/photos/.gitkeep

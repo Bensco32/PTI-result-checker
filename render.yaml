@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: pti-result-checker
+    env: docker
+    plan: free
+    envVars:
+      - key: DB_HOST
+        fromDatabase:
+          name: pti-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: pti-db
+          property: port
+      - key: DB_NAME
+        fromDatabase:
+          name: pti-db
+          property: database
+      - key: DB_USER
+        fromDatabase:
+          name: pti-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: pti-db
+          property: password
+
+databases:
+  - name: pti-db
+    plan: free

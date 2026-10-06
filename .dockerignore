@@ -1,0 +1,9 @@
+.git
+.gitignore
+.dockerignore
+README.md
+config/config.local.php
+uploads/results/*.pdf
+uploads/photos/*
+!uploads/results/.gitkeep
+!uploads/photos/.gitkeep
