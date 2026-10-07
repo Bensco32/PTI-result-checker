@@ -16,9 +16,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $identifier = trim((string) ($_POST['identifier'] ?? ''));
     $password   = (string) ($_POST['password'] ?? '');
 
-    $stmt = db()->prepare('SELECT * FROM admins WHERE username = ? OR email = ?');
-    $stmt->execute([$identifier, $identifier]);
-    $admin = $stmt->fetch();
+    try {
+        $stmt = db()->prepare('SELECT * FROM admins WHERE username = ? OR email = ?');
+        $stmt->execute([$identifier, $identifier]);
+        $admin = $stmt->fetch();
+    } catch (PDOException $e) {
+        error_log($e->getMessage());
+        $error = 'Something went wrong while processing your request. Please try again.';
+        $admin = null;
+    }
 
     if ($admin && password_verify($password, $admin['password_hash'])) {
         session_regenerate_id(true);
