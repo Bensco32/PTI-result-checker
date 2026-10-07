@@ -34,6 +34,10 @@ function db(): PDO
     }
 
     $dsn = sprintf('pgsql:host=%s;port=%s;dbname=%s', $dbHost, $dbPort, $dbName);
+    $sslMode = getenv('DB_SSLMODE') ?: ($GLOBALS['local']['DB_SSLMODE'] ?? '');
+    if ($sslMode !== '') {
+        $dsn .= ';sslmode=' . $sslMode;
+    }
     try {
         $pdo = new PDO($dsn, (string) $dbUser, (string) $dbPass, [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
